@@ -4,6 +4,7 @@ from playwright.sync_api import Page, expect
 # Website URL and screenshot path
 URL = "https://opencart.abstracta.us/index.php?route=common/home"
 MAC_SCREENSHOT = "tests/member_b/screenshots/search_mac.png"
+LOWERCASE_MAC_SCREENSHOT = "tests/member_b/screenshots/search_lowercase_mac.png"
 
 #创建搜索函数，包括打开界面，定位搜索框，输入搜索内容，点击搜索按钮
 def search_product(page: Page, product_name: str):
@@ -65,3 +66,25 @@ def test_search_nonexistent_product(page: Page):
 
     # Save evidence
     page.screenshot( path="tests/member_b/screenshots/search_no_result.png",full_page=True,)
+
+
+#情景三: 搜索小写关键字“mac”，验证搜索功能不区分大小写，并且至少返回一个匹配的产品
+def test_search_with_lowercase_keyword_mac(page: Page):
+    # Search for products using the lowercase keyword "mac"
+    search_product(page, "mac")
+
+    # Verify that the search results page is displayed
+    expect(
+        page.get_by_role("heading", name="Search - mac", exact=True)
+    ).to_be_visible()
+
+    # Verify that at least one matching product is returned
+    product_links = page.locator(".product-thumb h4 a")
+    expect(product_links.first).to_be_visible()
+
+    product_names = product_links.all_inner_texts()
+    assert product_names, "Expected at least one product in the search results"
+    assert all("mac" in name.lower() for name in product_names)
+
+    # Save evidence of the search results
+    page.screenshot(path=LOWERCASE_MAC_SCREENSHOT, full_page=True)
