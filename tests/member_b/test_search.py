@@ -5,6 +5,7 @@ from playwright.sync_api import Page, expect
 URL = "https://opencart.abstracta.us/index.php?route=common/home"
 MAC_SCREENSHOT = "tests/member_b/screenshots/search_mac.png"
 LOWERCASE_MAC_SCREENSHOT = "tests/member_b/screenshots/search_lowercase_mac.png"
+No_SEARCH_PRODUCT="tests/member_b/screenshots/search_no_result.png"
 
 #创建搜索函数，包括打开界面，定位搜索框，输入搜索内容，点击搜索按钮
 def search_product(page: Page, product_name: str):
@@ -65,7 +66,7 @@ def test_search_nonexistent_product(page: Page):
     expect(product_links).to_have_count(0)
 
     # Save evidence
-    page.screenshot( path="tests/member_b/screenshots/search_no_result.png",full_page=True,)
+    page.screenshot( path=No_SEARCH_PRODUCT,full_page=True,)
 
 
 #情景三: 搜索小写关键字“mac”，验证搜索功能不区分大小写，并且至少返回一个匹配的产品
