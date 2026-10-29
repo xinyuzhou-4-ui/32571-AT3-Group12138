@@ -24,8 +24,9 @@ def test_logout_success(page: Page):
     expect(page).to_have_url(
         "https://opencart.abstracta.us/index.php?route=account/logout"
     )
-    expect(page.locator("#content p").first).to_have_text
-    ("You have been logged off your account. It is now safe to leave the computer.")
+    expect(page.locator("#content p").first).to_have_text(
+        "You have been logged off your account. It is now safe to leave the computer."
+    )
 
 
 # scene 2: cannot access the protected account after logout
