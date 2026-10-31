@@ -2,6 +2,11 @@ from playwright.sync_api import Page, expect
 
 LOGIN_URL = "https://opencart.abstracta.us/index.php?route=account/login"
 ACCOUNT_URL = "https://opencart.abstracta.us/index.php?route=account/account"
+LOGOUT_SUCCESS_IMAGE = "tests/member_a/screenshots/test_logout_success.png"
+PROTECTED_PAGE_IMAGE = (
+    "tests/member_a/screenshots/test_protected_page_after_logout.png"
+)
+BROWSER_BACK_IMAGE = "tests/member_a/screenshots/test_browser_back_after_logout.png"
 
 
 # Auxiliary function: Login account
@@ -27,6 +32,11 @@ def test_logout_success(page: Page):
         "You have been logged off your account. It is now safe to leave the computer."
     )
 
+    page.screenshot(
+        path=LOGOUT_SUCCESS_IMAGE,
+        full_page=True,
+    )
+
 
 # scene 2: cannot access the protected account after logout
 def test_cannot_access_account_after_logout(page: Page):
@@ -40,6 +50,11 @@ def test_cannot_access_account_after_logout(page: Page):
 
     # Verify it is redirected back to the login page
     expect(page).to_have_url(LOGIN_URL)
+
+    page.screenshot(
+        path=PROTECTED_PAGE_IMAGE,
+        full_page=True,
+    )
 
 
 # Scene 3: Using the browser back button after exiting
@@ -55,3 +70,8 @@ def test_logout_browser_back(page: Page):
 
     # Verify it is still in an unlogged-in state/has been redirected to log in
     expect(page).to_have_url(LOGIN_URL)
+
+    page.screenshot(
+        path=BROWSER_BACK_IMAGE,
+        full_page=True,
+    )
