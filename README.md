@@ -8,8 +8,8 @@ The project contains 6 test cases and 18 automated test scenarios. The tests cov
 
 | Member | Functions |
 | --- | --- |
-| Member A | F1 User Registration, F2 User Login, F3 User Logout |
-| Member B | F4 Product Search, F5 Add to Cart, F6 Shopping Cart Management |
+| Member A (Wenhan Li) | F1 User Registration, F2 User Login, F3 User Logout |
+| Member B (Xinyu Zhou) | F4 Product Search, F5 Add to Cart, F6 Shopping Cart Management |
 
 ## Test Files
 
