@@ -100,6 +100,18 @@ Use `--headed` if you want to see the browser:
 python -m pytest -v --headed
 ```
 
+## Continuous Integration
+
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs all 18 tests on
+an Ubuntu runner when code is pushed to `main`, when a pull request targets
+`main`, or when the workflow is started manually from the Actions page.
+
+The workflow installs Python, the pinned project dependencies, Chromium, and
+the required Linux browser libraries before running Pytest. It uploads the
+JUnit test report and screenshots even when a test fails. After a successful
+push to `main`, it also uploads a packaged copy of the tested project as a
+deployment-preparation artifact; it does not deploy to an external service.
+
 ## Test Method
 
 We first checked the website manually to understand how it currently works. We then wrote automated tests based on the behaviour we observed. A passed test means the website still behaved in the same way as our original check.
